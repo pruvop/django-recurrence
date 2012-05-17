@@ -29,13 +29,13 @@ class RecurrenceField(fields.Field):
         value = super(RecurrenceField, self).to_python(value) or u''
         return recurrence.deserialize(value)
 
-    def get_db_prep_value(self, value):
+    def get_prep_value(self, value):
         if isinstance(value, basestring):
             value = recurrence.deserialize(value)
         return recurrence.serialize(value)
 
     def value_to_string(self, obj):
-        return self.get_db_prep_value(self._get_val_from_obj(obj))
+        return self.get_prep_value(self._get_val_from_obj(obj))
 
     def formfield(self, **kwargs):
         defaults = {
