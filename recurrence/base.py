@@ -953,7 +953,7 @@ def deserialize(text):
     dtstart, dtend, rrules, exrules, rdates, exdates = None, None, [], [], [], []
 
     tokens = re.compile(
-        u'(DTSTART|DTEND|RRULE|EXRULE|RDATE|EXDATE)[^:]*:(.*)',
+        u'(DTSTART|DTEND|RRULE|EXRULE|RDATE|EXDATE)[^:]*:(.*)', 
         re.MULTILINE).findall(text)
 
     if not tokens and text:

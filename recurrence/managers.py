@@ -12,7 +12,9 @@ class RuleManager(manager.Manager):
             'interval': rule_model.interval,
             'wkst': rule_model.wkst,
             'count': rule_model.count,
-            'until': pytz.utc.localize(rule_model.until),}
+            'until': rule_model.until,}
+        if rule_model.until is not None:
+            rule_kwargs['until'] = pytz.utc.localize(rule_model.until)
 
         for param in recurrence.Rule.byparams:
             if param == 'byday':
@@ -91,7 +93,8 @@ class RecurrenceManager(manager.Manager):
             if not dt:
                 return dt
             if dt.tzinfo:
-                return dt.tzinfo.astimezone(pytz.utc)
+                return dt.astimezone(pytz.utc)
+                #return dt.tzinfo.astimezone(pytz.utc)
             else:
                 return pytz.utc.localize(dt)
 
